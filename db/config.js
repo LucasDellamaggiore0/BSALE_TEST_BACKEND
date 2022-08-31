@@ -30,8 +30,8 @@ const { product, category } = sequelize.models
 
 // //! RELATIONS
 
-product.belongsTo(category, {foreignKey:'id'})
-category.hasMany(product, {foreignKey: 'id'})
+product.belongsTo(category, { as: "category_category", foreignKey: "category"})
+category.hasMany(product, { as: "products", foreignKey: "category"})
 
 
 //! KEEP ALIVE - EVITA QUE CADUQUE LA SESION CADA 5s
