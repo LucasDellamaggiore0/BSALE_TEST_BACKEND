@@ -20,9 +20,9 @@ async function getProducts(req, res) {
             res.json({
                 products
             })
-        }else{
+        } else {
             const products = await product.findAll({
-                where:{
+                where: {
                     category: `${category}`
                 }
             })
@@ -36,9 +36,8 @@ async function getProducts(req, res) {
         })
     }
 }
-
-async function getProductById(req,res){
-    const {id} = req.params
+async function getProductById(req, res) {
+    const { id } = req.params
     try {
         const productDetail = await product.findByPk(id)
         res.json({
