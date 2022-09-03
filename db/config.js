@@ -42,23 +42,31 @@ category.hasMany(product, { as: "products", foreignKey: "category" })
 
 //! KEEP ALIVE - EVITA QUE CADUQUE LA SESION CADA 5s
 function handleConnection() {
-    connection = mysql.createConnection(db_config)
-    connection.connect(function (err) {
-        if (err) {
-            console.log('error when connecting to db:', err);
-            setTimeout(handleConnection, 5000);
-        }
-        console.log("Base de datos conectada", connection.threadId)
-    });
+    connection = mysql.createPool(db_config)
+    // connection.connect(function (err) {
+    //     if (err) {
+    //         console.log('error when connecting to db:', err);
+    //         setTimeout(handleConnection, 5000);
+    //     }
+    //     console.log("Base de datos conectada", connection.threadId)
+    // });
 
-    connection.on('error', function (err) {
-        console.log('db error', err);
-        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-            handleConnection();
-        } else {
-            throw err;
+    // connection.on('error', function (err) {
+    //     console.log('db error', err);
+    //     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+    //         handleConnection();
+    //     } else {
+    //         throw err;
+    //     }
+    // });
+    connection.getConnection((err)=>{
+        if(err){
+            console.log("Error en la base de datos", err)
+            setTimeout(handleConnection, 5000)
         }
-    });
+        console.log("Base de datos conectada")
+    })
+
 }
 
 
