@@ -12,7 +12,13 @@ const db_config = {
 
 const sequelize = new Sequelize(NAME_DB, USER_DB, PASSWORD_DB, {
     host: HOST_DB,
-    dialect: 'mysql'
+    dialect: 'mysql',
+    dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false
+        }
+    }
 })
 
 // sequelize.authenticate()
@@ -30,8 +36,8 @@ const { product, category } = sequelize.models
 
 // //! RELATIONS
 
-product.belongsTo(category, { as: "category_category", foreignKey: "category"})
-category.hasMany(product, { as: "products", foreignKey: "category"})
+product.belongsTo(category, { as: "category_category", foreignKey: "category" })
+category.hasMany(product, { as: "products", foreignKey: "category" })
 
 
 //! KEEP ALIVE - EVITA QUE CADUQUE LA SESION CADA 5s
