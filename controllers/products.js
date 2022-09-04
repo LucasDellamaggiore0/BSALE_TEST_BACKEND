@@ -7,6 +7,7 @@ async function getProducts(req, res) {
         if (!name && !category) {
             const products = await product.findAll()
             res.json({
+                ok: true,
                 products
             })
         } else if (name && !category) {
@@ -18,6 +19,7 @@ async function getProducts(req, res) {
                 }
             })
             res.json({
+                ok: true,
                 products
             })
         } else {
@@ -27,11 +29,13 @@ async function getProducts(req, res) {
                 }
             })
             res.json({
+                ok: true,
                 products
             })
         }
     } catch (error) {
         res.status(400).send({
+            ok: false,
             error
         })
     }
@@ -41,10 +45,12 @@ async function getProductById(req, res) {
     try {
         const productDetail = await product.findByPk(id)
         res.json({
+            ok: true,
             productDetail
         })
     } catch (error) {
         res.status(400).send({
+            ok: false,
             error
         })
     }
