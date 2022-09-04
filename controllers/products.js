@@ -40,23 +40,8 @@ async function getProducts(req, res) {
         })
     }
 }
-async function getProductById(req, res) {
-    const { id } = req.params
-    try {
-        const productDetail = await product.findByPk(id)
-        res.json({
-            ok: true,
-            productDetail
-        })
-    } catch (error) {
-        res.status(400).send({
-            ok: false,
-            error
-        })
-    }
-}
+
 
 module.exports = {
-    getProducts,
-    getProductById
+    getProducts
 }
